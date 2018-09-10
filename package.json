@@ -9,6 +9,10 @@
   ],
   "author": "makeupsomethinglater",
   "license": "MIT",
+  "homepage": "https://github.com/makeupsomething/vue-d3-cloud",
+  "bugs": {
+    "url": "https://github.com/makeupsomething/vue-d3-cloud/issues"
+  },
   "version": "0.1.0",
   "private": true,
   "main": "./dist/vue-d3-cloud.common.js",
