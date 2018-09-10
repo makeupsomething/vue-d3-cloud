@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <cloud :data="words" :fontSizeMapper="fontSizeMapper" :rotate="rotate" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Cloud from './components/Cloud.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      words: [
+        { text: 'Hey', value: 1000 },
+        { text: 'lol', value: 200 },
+        { text: 'first impression', value: 800 },
+        { text: 'very cool', value: 1000000 },
+        { text: 'duck', value: 10 },
+      ],
+      fontSizeMapper: word => Math.log2(word.value) * 5,
+      rotate: 0,
+    }
+  },
+
   components: {
-    HelloWorld
+    Cloud
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

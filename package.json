@@ -1,13 +1,33 @@
 {
   "name": "vue-d3-cloud",
+  "description": "a word cloud component using d3-cloud",
+  "keywords": [
+    "word-cloud",
+    "vue",
+    "vuejs",
+    "d3"
+  ],
+  "author": "makeupsomethinglater",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/vue-d3-cloud.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name vue-d3-cloud",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "d3": "^5.7.0",
+    "d3-cloud": "^1.2.5",
     "vue": "^2.5.17"
   },
   "devDependencies": {
