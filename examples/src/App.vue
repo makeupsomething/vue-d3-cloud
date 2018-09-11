@@ -44,8 +44,7 @@
 </template>
 
 <script>
-//import Cloud from 'vue-d3-cloud'
-import Cloud from '../../src/components/Cloud'
+import Cloud from 'vue-d3-cloud'
 
 export default {
 	name: 'app',
