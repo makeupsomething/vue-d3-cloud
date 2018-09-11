@@ -26,7 +26,8 @@ export default {
             default: (word) => { console.log(word) },
         },
         rotate: {
-            type: [Function, String],
+            type: [Function, String, Number],
+            default: 0,
         },
         font: {
             type: [String, Function],
