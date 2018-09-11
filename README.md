@@ -23,7 +23,7 @@ export default {
     name: 'app',
     data() {
         return {
-            words = [
+            words: [
                 { text: 'Vue', value: 1000 },
                 { text: 'js', value: 200 },
                 { text: 'is', value: 800 },
@@ -36,5 +36,6 @@ export default {
     components: {
         Cloud,
     },
+}
 </script>
 ```
