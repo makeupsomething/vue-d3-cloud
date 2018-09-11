@@ -26,45 +26,72 @@ export default {
             default: (word) => { console.log(word) },
         },
         rotate: {
-            type: [Function, Number],
+            type: [Function, String],
         },
         font: {
             type: [String, Function],
-            default: 'serif'
+            default: 'Serif'
         },
         width: {
-            type: Number,
+            type: [Number, String],
             default: 960,
         },
         height: {
-            type: Number,
+            type: [Number, String],
             default: 500,
         },
         padding: {
-            type: Number,
+            type: [Number, String],
             default: 0,
+        },
+        spiral: {
+            type: String,
+            default: "archimedean",
         }
     },
 
     mounted() {
+        this.createCanvas()
+    },
 
-        const wordCounts = this.data.map(
-            text => ({ ...text })
-        );
-         
-        const layout = cloud()
-        .size([this.width, this.height])
-        .words(wordCounts)
-        .padding(this.padding)
-        .rotate(this.rotate)
-        .font("Impact")
-        .fontSize(this.fontSizeMapper)
-        .on('end', this.end);
-
-        layout.start();
+    watch: {
+        data() {
+            this.createCanvas()
+        },
+        rotate() {
+            this.createCanvas()
+        },
+        font() {
+            this.createCanvas()
+        },
+        padding() {
+            this.createCanvas()
+        },
+        spiral() {
+            this.createCanvas()
+        },
     },
 
     methods: {
+        createCanvas: function() {
+            const wordCounts = this.data.map(
+                text => ({ ...text })
+            );
+
+            d3.select(this.$el).selectAll('*').remove();
+
+            const layout = cloud()
+            .size([this.width, this.height])
+            .words(wordCounts)
+            .padding(this.padding)
+            .spiral(this.spiral)
+            .rotate(this.rotate)
+            .font(this.font)
+            .fontSize(this.fontSizeMapper)
+            .on('end', this.end);
+
+            layout.start();
+        },
         end: function(words) {
             let cloud = d3.select(this.$el)
             .append('svg')
@@ -76,7 +103,7 @@ export default {
             .data(words)
             .enter()
             .append('text')
-            .style('font-family', "Impact")
+            .style('font-family', d => d.font)
             .style('font-size', d => {
                 return `${d.size}px`
             })
