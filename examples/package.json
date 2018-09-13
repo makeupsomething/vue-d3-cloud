@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "vue": "^2.5.17",
-    "vue-d3-cloud": "^0.1.3"
+    "vue-d3-cloud": "^0.1.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",

@@ -1,5 +1,10 @@
 <template>
 	<div id="app">
+	<header>
+		<h1>vue-d3-cloud example</h1>
+	</header>
+	<main>
+	<h2></h2>
 	<cloud
 		v-if="wordCount"
 		class="cloud" 
@@ -9,36 +14,40 @@
 		:font="font" 
 		:padding="padding" 
 		:spiral="spiral" />
-	<br />
-	<textarea v-model="words" cols="100" rows="20" />
+	</main>
 	<div class="container">
-		<span>Words will have a random rotation between</span>
-		<br />
-		<label for="minimum degree">Min Degree</label>
-		<input v-model="min" type="number" name="minimum degree" min="0" :max="max-1" />
-		<label for="maximum degree">Max Degree</label>
-		<input v-model="max" type="number" name="maximum degree" :min="min+1" max="359s" />
-		<br />
-		<label for="padding">Padding</label>
-		<input v-model="padding" type="number" name="padding" />
-		<br />
-		<label for="font">Font</label>
-		<select v-model="font" name="font">
-			<option>Serif</option>
-			<option>Helvetica</option>
-			<option>Arial</option>
-			<option>Times</option>
-			<option>Times New Roman</option>
-			<option>Courier</option>
-			<option>Impact</option>
-			<option>Georgia</option>
-		</select>
-		<br />
-		<label for="spiral">Spiral Style</label>
-		<select v-model="spiral" name="spiral">
-			<option>archimedean</option>
-			<option>rectangular</option>
-		</select>
+		<div>
+			<textarea v-model="words" cols="100" rows="20" />
+		</div>
+		<div>
+			<span>Words will have a random rotation between</span>
+			<br />
+			<label for="minimum degree">Min Degree</label>
+			<input v-model="min" type="number" name="minimum degree" min="0" :max="max-1" />
+			<label for="maximum degree">Max Degree</label>
+			<input v-model="max" type="number" name="maximum degree" :min="min+1" max="359s" />
+			<br />
+			<label for="padding">Padding</label>
+			<input v-model="padding" type="number" name="padding" />
+			<br />
+			<label for="font">Font</label>
+			<select v-model="font" name="font">
+				<option>Serif</option>
+				<option>Helvetica</option>
+				<option>Arial</option>
+				<option>Times</option>
+				<option>Times New Roman</option>
+				<option>Courier</option>
+				<option>Impact</option>
+				<option>Georgia</option>
+			</select>
+			<br />
+			<label for="spiral">Spiral Style</label>
+			<select v-model="spiral" name="spiral">
+				<option>archimedean</option>
+				<option>rectangular</option>
+			</select>
+		</div>
 	</div>
 	</div>
 </template>
@@ -106,9 +115,13 @@ export default {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	/*text-align: center;*/
 	color: #2c3e50;
 	margin-top: 60px;
+}
+
+header {
+	margin: auto;
+	text-align: center;
 }
 
 textarea {
@@ -125,10 +138,7 @@ svg {
 
 .container {
 	display: flex;
-	margin: auto;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-content: center;
-	max-width: 200px;
+	flex-direction: row;
+	justify-content: space-around;
 }
 </style>
