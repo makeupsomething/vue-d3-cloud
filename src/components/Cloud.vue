@@ -2,13 +2,12 @@
 import * as d3 from "d3";
 import * as cloud from 'd3-cloud';
 
-var fill;
-
 export default {
     data() {
         return {
             layout: {},
             chart: {},
+            fill: null,
         }
     },
 
@@ -23,7 +22,9 @@ export default {
         },
         onWordClick: {
             type: Function,
-            default: (word) => { console.log(word) },
+            default: (word) => { 
+                window.alert(`You clicked ${word.text}`) 
+            },
         },
         rotate: {
             type: [Function, String, Number],
@@ -105,9 +106,9 @@ export default {
             .on('end', this.end);
             
             if(this.colors)
-                fill = d3.scaleOrdinal().range(this.colors)
+                this.fill = d3.scaleOrdinal().range(this.colors)
             else
-                fill = d3.scaleOrdinal(d3.schemeCategory10)
+                this.fill = d3.scaleOrdinal(d3.schemeCategory10)
 
             layout.start();
         },
@@ -115,16 +116,16 @@ export default {
             let _fill;
             switch(this.coloring){
                 case "random":
-                    _fill = (d, i) => fill(i);
+                    _fill = (d, i) => this.fill(i);
                     break;
                 case "size":
-                    _fill = (d, i) => fill(d.size);
+                    _fill = (d) => this.fill(d.size);
                     break;
                 default:
-                    _fill = (d, i) => fill(i);
+                    _fill = (d, i) => this.fill(i);
             }
 
-            let cloud = d3.select(this.$el)
+            d3.select(this.$el)
             .append('svg')
             .attr('width', this.width)
             .attr('height', this.height)
