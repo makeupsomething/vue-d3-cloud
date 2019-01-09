@@ -13,7 +13,9 @@
 		:rotate="rotate" 
 		:font="font" 
 		:padding="padding" 
-		:spiral="spiral" />
+		:spiral="spiral" 
+		:colors="['green', 'blue', 'lightpink']"
+		coloring="size"/>
 	</main>
 	<div class="container">
 		<div>
@@ -53,7 +55,7 @@
 </template>
 
 <script>
-import Cloud from 'vue-d3-cloud'
+import Cloud from '../../src/components/Cloud.vue'
 
 export default {
 	name: 'app',
@@ -79,7 +81,7 @@ export default {
 		rotate: function() {
 			let newMin = this.min
 			let newMax = this.max
-			return word => Math.random() * (newMax - newMin) + newMin
+			return () => Math.random() * (newMax - newMin) + newMin
 		},
 
 		wordCount: function() {
