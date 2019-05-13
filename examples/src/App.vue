@@ -13,7 +13,9 @@
 		:rotate="rotate" 
 		:font="font" 
 		:padding="padding" 
-		:spiral="spiral" />
+		:spiral="spiral" 
+		:colors="colors"
+		:coloring="coloring"/>
 	</main>
 	<div class="container">
 		<div>
@@ -47,13 +49,26 @@
 				<option>archimedean</option>
 				<option>rectangular</option>
 			</select>
+			<br />
+			<label for="spiral">Colors</label>
+			[<span v-for="color in useColors" :key="color">
+				{{color.toString()}},
+			</span>]
+			<button @click="addColor">Add Color</button>
+			<button @click="removeColor">Remove Color</button>
+			<br />
+			<label for="coloring">Coloring By</label>
+			<select v-model="coloring" name="coloring">
+				<option>size</option>
+				<option>random</option>
+			</select>
 		</div>
 	</div>
 	</div>
 </template>
 
 <script>
-import Cloud from 'vue-d3-cloud'
+import Cloud from '../../src/components/Cloud.vue'
 
 export default {
 	name: 'app',
@@ -67,6 +82,9 @@ export default {
 			fontSizeMapper: word => Math.log2(word.value*5) * 10,
 			font: "Helvetica",
 			spiral: "archimedean",
+			colors: ['coral', 'blue', 'hotpink', 'peachpuff', 'green'],
+			coloring: 'size',
+			colorCount: 3,
 		}
 	},
 	
@@ -79,7 +97,7 @@ export default {
 		rotate: function() {
 			let newMin = this.min
 			let newMax = this.max
-			return word => Math.random() * (newMax - newMin) + newMin
+			return () => Math.random() * (newMax - newMin) + newMin
 		},
 
 		wordCount: function() {
@@ -105,8 +123,29 @@ export default {
 			}
 
 			return occurencesCount
+		},
+
+		useColors() {
+			return this.colors.filter((color, index) => {
+				if(index < this.colorCount) {
+					return color
+				}
+			})
 		}
 	},
+
+	methods: {
+		addColor() {
+			if(this.colorCount < 5) {
+				this.colorCount++;
+			}
+		},
+		removeColor() {
+			if(this.colorCount > 1) {
+				this.colorCount--;
+			}
+		}
+	}
 }
 </script>
 
@@ -134,6 +173,13 @@ svg {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+br {
+	display: block;
+    margin-bottom: 7px;
+    font-size:2px;
+    line-height: 30px;
 }
 
 .container {

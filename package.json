@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/makeupsomething/vue-d3-cloud/issues"
   },
-  "version": "0.1.6",
+  "version": "0.2.0",
   "private": false,
   "main": "./dist/vue-d3-cloud.common.js",
   "files": [
@@ -35,9 +35,9 @@
     "vue": "^2.5.17"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {

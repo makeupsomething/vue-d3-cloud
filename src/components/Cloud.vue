@@ -2,13 +2,12 @@
 import * as d3 from "d3";
 import * as cloud from 'd3-cloud';
 
-const fill = d3.scaleOrdinal(d3.schemeCategory10);
-
 export default {
     data() {
         return {
             layout: {},
             chart: {},
+            fill: null,
         }
     },
 
@@ -23,7 +22,9 @@ export default {
         },
         onWordClick: {
             type: Function,
-            default: (word) => { console.log(word) },
+            default: (word) => { 
+                window.alert(`You clicked ${word.text}`) 
+            },
         },
         rotate: {
             type: [Function, String, Number],
@@ -48,6 +49,13 @@ export default {
         spiral: {
             type: String,
             default: "archimedean",
+        },
+        coloring: {
+            type: String,
+            default: "random",
+        },
+        colors: {
+            type: Array,
         }
     },
 
@@ -71,6 +79,12 @@ export default {
         spiral() {
             this.createCanvas()
         },
+        colors() {
+            this.createCanvas()
+        },
+        coloring() {
+            this.createCanvas()
+        }
     },
 
     methods: {
@@ -90,11 +104,28 @@ export default {
             .font(this.font)
             .fontSize(this.fontSizeMapper)
             .on('end', this.end);
+            
+            if(this.colors)
+                this.fill = d3.scaleOrdinal().range(this.colors)
+            else
+                this.fill = d3.scaleOrdinal(d3.schemeCategory10)
 
             layout.start();
         },
         end: function(words) {
-            let cloud = d3.select(this.$el)
+            let _fill;
+            switch(this.coloring){
+                case "random":
+                    _fill = (d, i) => this.fill(i);
+                    break;
+                case "size":
+                    _fill = (d) => this.fill(d.size);
+                    break;
+                default:
+                    _fill = (d, i) => this.fill(i);
+            }
+
+            d3.select(this.$el)
             .append('svg')
             .attr('width', this.width)
             .attr('height', this.height)
@@ -108,7 +139,7 @@ export default {
             .style('font-size', d => {
                 return `${d.size}px`
             })
-            .style('fill', (d, i) => fill(i))
+            .style('fill', _fill)
             .attr('text-anchor', 'middle')
             .attr('transform',d => { 
                 return `translate(${[d.x, d.y]})rotate(${d.rotate})`
@@ -123,3 +154,4 @@ export default {
 <template>
     <div class="wordCloud" ref="wordCloud"></div>
 </template>
+
